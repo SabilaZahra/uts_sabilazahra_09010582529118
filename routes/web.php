@@ -16,6 +16,8 @@ Route::middleware('auth')->group(function () {
             'totalBooks'      => Book::count(),
             'totalCategories' => Category::count(),
             'totalStock'      => (int) Book::sum('stock'),
+            'recentBooks'     => Book::with('category')->latest()->take(5)->get(),
+            'categories'      => Category::withCount('books')->get(),
         ]);
     })->name('dashboard');
 
